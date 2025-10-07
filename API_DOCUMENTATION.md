@@ -1,6 +1,13 @@
 # SACCO Nova API Documentation
 
-## Base URL
+## Base URLs
+
+**Production:**
+```
+https://saccbackend.vercel.app/api/
+```
+
+**Development:**
 ```
 http://localhost:8000/api/
 ```

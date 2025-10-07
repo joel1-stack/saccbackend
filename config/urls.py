@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import JsonResponse
 from . import views
 
 @api_view(['GET'])
@@ -28,6 +29,7 @@ def api_root(request):
         'message': 'SACCO Nova Digital Ecosystem',
         'version': '2.0',
         'description': 'Complete SACCO management platform with trust, automation & intelligence',
+        'frontend_url': 'https://sacco-sigma.vercel.app',
         'core_endpoints': {
             'auth': '/api/auth/',
             'dashboard': '/api/dashboard/',
@@ -45,7 +47,17 @@ def api_root(request):
         }
     })
 
+def root_redirect(request):
+    return JsonResponse({
+        'message': 'Welcome to SACCO Nova',
+        'frontend_app': 'https://sacco-sigma.vercel.app',
+        'api_documentation': '/api/',
+        'login': 'https://sacco-sigma.vercel.app/login',
+        'register': 'https://sacco-sigma.vercel.app/register'
+    })
+
 urlpatterns = [
+    path('', root_redirect, name='root-redirect'),
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/dashboard/', views.dashboard_summary, name='dashboard-summary'),
